@@ -1,6 +1,12 @@
 # What's this?
 It's an Emacs extension, with it you can just use one key to save clipboard image to disk file, and at the same time insert the file link(org-mode/markdown-mode) or file path(other mode) to current point.
 
+![](./img/pasteex_screenshot_README_20190902191736.png)
+
+![](./img/pasteex_screenshot_README_20190902191801.png)
+
+![](./img/pasteex_screenshot_README_20190902191656.png)
+
 Based on the ability of PasteEx, only support Windows platform.
 
 # Prerequisite
