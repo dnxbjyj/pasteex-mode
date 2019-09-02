@@ -1,3 +1,98 @@
+;; pasteex-mode.el --- Save clipboard image to disk file, and insert file link to current point.
+
+;; Filename: pasteex-mode.el
+;; Description: Save clipboard image to disk file, and insert file link to current point.
+;; Author: m2fox <dnxbjyj@126.com>
+;; Maintainer: m2fox <dnxbjyj@126.com>
+;; Copyright (C) 2019, m2fox, all rights reserved.
+;; Created: 2019-09-02 19:24:53
+;; Version: 1.0
+;; Last-Updated: 2019-09-02 19:24:53
+;;           By: m2fox
+;; URL: https://github.com/dnxbjyj/pasteex-mode
+;; Keywords:
+;; Compatibility: GNU Emacs 25.3
+;;
+;; Features that might be required by this library:
+;;
+;;
+;;
+
+;;; This file is NOT part of GNU Emacs
+
+;;; License
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+
+;;; Commentary:
+;;
+;; Save clipboard image to disk file, and insert file link to current point.
+;;
+;; It's an Emacs extension, with it you can just use one key to save clipboard
+;; image to disk file, and at the same time insert the file link(org-mode/markdown-mode)
+;; or file path(other mode) to current point.
+
+;;; Installation:
+
+;; Download PasteEx.exe from: https://github.com/huiyadanli/PasteEx/releases
+;;
+;; Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`.
+;; It's set in your `~/.emacs` file like this:
+;; (add-to-list 'load-path (expand-file-name "~/elisp"))
+;;
+;; And the following to your ~/.emacs startup file.
+;; (require 'pasteex-mode)
+;;
+;; Set `PasteEx.exe` executable file path to environment PATH, or set the variable
+;; `pasteex-executable-path` in your config file, like this:
+;; (setq pasteex-executable-path "D:/program/PasteEx/PasteEx.exe")
+;;
+;; Bind your favority key to function `pasteex-image`, like this:
+;; (define-key pasteex-mode-map (kbd "C-c i") 'pasteex-image)
+;;
+;; After you make a screenshot to clipboard, or copy a PNG image file to clipboard,
+;; then just press `C-c i` shortcut, and the file link or path will be inserted to your buffer
+;; immediately, the screenshot image file is saved to `./img/` directory by default. 
+
+;;; Customize:
+;;
+;; `pasteex-executable-path' can customize by:
+;;      M-x customize-group RET pasteex-mode RET
+;;
+
+;;; Change log:
+;;
+;; 2019-09-02 Mon
+;;      * First released.
+;;
+
+;;; Acknowledgements:
+;;
+;;
+;;
+
+;;; TODO
+;;
+;;
+;;
+
+;;; Require
+
+
+;;; Code:
 (defgroup pasteex nil
   "Save clipboard image to disk file, and insert file path to current buffer."
   :group 'pasteex)
@@ -64,3 +159,4 @@
 (add-hook 'markdown-mode-hook 'pasteex-mode)
 
 (provide 'pasteex-mode)
+;;; pasteex-mode.el ends here
