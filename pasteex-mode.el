@@ -1,4 +1,4 @@
-;; pasteex-mode.el --- Save clipboard image to disk file, and insert file link to current point.
+;;; pasteex-mode.el --- Save clipboard image to disk file, and insert file link to current point.
 
 ;; Filename: pasteex-mode.el
 ;; Description: Save clipboard image to disk file, and insert file link to current point.
@@ -61,10 +61,10 @@
 ;; (setq pasteex-executable-path "D:/program/PasteEx/PasteEx.exe")
 ;;
 ;; Bind your favority key to function `pasteex-image`, like this:
-;; (define-key pasteex-mode-map (kbd "C-c i") 'pasteex-image)
+;; (global-set-key (kbd "C-x p i") 'pasteex-image)
 ;;
 ;; After you make a screenshot to clipboard, or copy a PNG image file to clipboard,
-;; then just press `C-c i` shortcut, and the file link or path will be inserted to your buffer
+;; then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer
 ;; immediately, the screenshot image file is saved to `./img/` directory by default. 
 
 ;;; Customize:
@@ -94,7 +94,7 @@
 
 ;;; Code:
 (defgroup pasteex nil
-  "Save clipboard image to disk file, and insert file path to current buffer."
+  "Save clipboard image to disk file, and insert file path to current point."
   :group 'pasteex)
 
 (defcustom pasteex-executable-path "pasteex"
@@ -103,7 +103,7 @@
   :group 'pasteex)
 
 (defun pasteex-image ()
-  "Save clipboard image to disk file, and insert file path to current buffer."
+  "Save clipboard image to disk file, and insert file path to current point."
   (interactive)
   ;; validate pasteex-executable-path
   (unless (executable-find pasteex-executable-path)
@@ -121,21 +121,21 @@
   (shell-command (format "%s /q %s %s" pasteex-executable-path img-dir img-file-name))
   (setq relative-img-file-path (concatenate 'string "./img/" img-file-name))
   ;; check is png file or not
-  (unless (is-png-file relative-img-file-path)
+  (unless (pasteex-is-png-file relative-img-file-path)
     ;; delete the generated file
     (delete-file relative-img-file-path)
     (user-error "There is no image on clipboard."))
   ;; insert image file path (relative path)
-  (insert (build-img-file-insert-path relative-img-file-path)))
+  (insert (pasteex-build-img-file-insert-path relative-img-file-path)))
 
-(defun build-img-file-insert-path (file-path)
-  "Build image file path that to insert to current buffer."
+(defun pasteex-build-img-file-insert-path (file-path)
+  "Build image file path that to insert to current point."
   (cond
    ((string-equal major-mode "markdown-mode") (format "![](%s)" file-path))
    ((string-equal major-mode "org-mode") (format "[[%s]]" file-path))
    (t file-path)))
 
-(defun is-png-file (file-path)
+(defun pasteex-is-png-file (file-path)
   "Check a file is png file or not."
   (with-temp-buffer
     (insert-file-contents file-path)
@@ -146,9 +146,26 @@
 	t
       nil)))
 
+(defun pasteex-delete-img-link-and-file-at-line ()
+  "Delete image link at line, and delete related disk file at the same time."
+  (interactive)
+  ;; the line content
+  (setq line-str (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+  ;; parse image file path
+  (string-match "\\./img/.+?\\.png" line-str)
+  (setq img-file-path (match-string 0 line-str))
+  ;; delete current line
+  (delete-region (line-beginning-position) (line-end-position))
+  ;; delete image file on disk
+  (if (file-exists-p img-file-path)
+      (progn
+	(delete-file img-file-path)
+	(message "delete SUCCESS: %s" img-file-path))
+    (message "file NOT exist: %s" img-file-path)))
+
 ;;;###autoload
 (define-minor-mode pasteex-mode
-  "Save clipboard image to disk file, and insert file path to current buffer."
+  "Save clipboard image to disk file, and insert file path to current point."
   :lighter " pasteex"
   :keymap (let ((map (make-sparse-keymap)))
 	    map))

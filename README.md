@@ -20,7 +20,7 @@ Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`
 (require 'pasteex-mode)
 ```
 
-# Usage
+# Basic Usage
 - Set `PasteEx.exe` executable file path to environment PATH, or set the variable `pasteex-executable-path` in your config file, like this:
 
 ```emacs-lisp
@@ -30,11 +30,11 @@ Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`
 - Bind your favority key to function `pasteex-image`, like this:
 
 ```emacs-lisp
-(define-key pasteex-mode-map (kbd "C-c i") 'pasteex-image)
+(global-set-key (kbd "C-x p i") 'pasteex-image)
 ```
 
-- After you make a screenshot to clipboard, or copy a PNG image file to clipboard, then just press `C-c i` shortcut, and the file link or path will be inserted to your buffer immediately, the screenshot image file is saved to `./img/` directory by default. 
+- After you make a screenshot to clipboard, or copy a PNG image file to clipboard, then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer immediately, the screenshot image file is saved to `./img/` directory by default. 
 
-# Tips
+# Other Tips
 - Only support Windows platform, because PasteEx only support Windows now.
 - That's all, enjoy it ;)
