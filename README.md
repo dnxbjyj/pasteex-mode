@@ -20,13 +20,8 @@ Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`
 (require 'pasteex-mode)
 ```
 
-<<<<<<< HEAD
-# Basic Usage
-- Set `PasteEx.exe` executable file path to environment PATH, or set the variable `pasteex-executable-path` in your config file, like this:
-=======
 # Usage
 - Add `PasteEx.exe` executable to environment PATH, or set the variable `pasteex-executable-path` in your config file, like this:
->>>>>>> c920b1de315d961787def2a25f72bfe6ba69175a
 
 ```emacs-lisp
 (setq pasteex-executable-path "D:/program/PasteEx/PasteEx.exe")
@@ -40,12 +35,7 @@ Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`
 
 - After you make a screenshot to clipboard, or copy a PNG image file to clipboard, then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer immediately, the screenshot image file is saved to `./img/` directory by default. 
 
-<<<<<<< HEAD
-# Other Tips
-- Only support Windows platform, because PasteEx only support Windows now.
-- That's all, enjoy it ;)
-=======
+
 # Tips
 - Only support Windows, because PasteEx only support Windows now.
 - That's all, enjoy it :)
->>>>>>> c920b1de315d961787def2a25f72bfe6ba69175a
