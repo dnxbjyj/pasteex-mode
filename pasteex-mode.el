@@ -70,7 +70,7 @@
 ;;; Customize:
 ;;
 ;; `pasteex-executable-path' can customize by:
-;;      M-x customize-group RET pasteex-mode RET
+;;      M-x customize-group RET pasteex RET
 ;;
 
 ;;; Change log:
