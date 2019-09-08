@@ -6,8 +6,8 @@
 ;; Maintainer: m2fox <dnxbjyj@126.com>
 ;; Copyright (C) 2019, m2fox, all rights reserved.
 ;; Created: 2019-09-02 19:24:53
-;; Version: 1.0
-;; Last-Updated: 2019-09-02 19:24:53
+;; Version: 0.0.2
+;; Last-Updated: 2019-09-08 Sun 15:22:12
 ;;           By: m2fox
 ;; URL: https://github.com/dnxbjyj/pasteex-mode
 ;; Keywords:
@@ -49,7 +49,7 @@
 
 ;; Download PasteEx.exe from: https://github.com/huiyadanli/PasteEx/releases
 ;;
-;; Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`.
+;; Add `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`.
 ;; It's set in your `~/.emacs` file like this:
 ;; (add-to-list 'load-path (expand-file-name "~/elisp"))
 ;;
@@ -74,6 +74,8 @@
 ;;
 
 ;;; Change log:
+;; 2019-09-08 Sun
+;;      * Add a function `pasteex-delete-img-link-and-file-at-line' to delete file when delete it link.
 ;;
 ;; 2019-09-02 Mon
 ;;      * First released.
@@ -137,6 +139,7 @@
 
 (defun pasteex-is-png-file (file-path)
   "Check a file is png file or not."
+  (interactive)
   (with-temp-buffer
     (insert-file-contents file-path)
     (hexl-mode)
