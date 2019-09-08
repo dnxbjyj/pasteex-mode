@@ -1,16 +1,13 @@
 # What's this?
 It's an Emacs extension, using it you can just use one key to save clipboard image to disk file, and at the same time insert the file link(org-mode/markdown-mode) or file path(other mode) to current point.
 
-![](./img/pasteex_screenshot_README_20190902191736.png)
-
-![](./img/pasteex_screenshot_README_20190902191801.png)
-
-![](./img/pasteex_screenshot_README_20190902191656.png)
+here is a usage demo:
+![](./img/illustrate.gif)
 
 Based on PasteEx, only support Windows.
 
 # Prerequisite
-- [PasteEx](https://github.com/huiyadanli/PasteEx/releases)
+- Install [PasteEx](https://github.com/huiyadanli/PasteEx/releases)
 
 # Installation
 Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`. It's set in your `~/.emacs` file like this:
