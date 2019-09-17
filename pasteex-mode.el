@@ -6,10 +6,10 @@
 ;; Maintainer: m2fox <dnxbjyj@126.com>
 ;; Copyright (C) 2019, m2fox, all rights reserved.
 ;; Created: 2019-09-02 19:24:53
-;; Version: 0.0.2
-;; Last-Updated: 2019-09-08 Sun 15:22:12
+;; Version: 0.2.1
+;; Last-Updated: 2019-09-17 Tue 22:19:32
 ;;           By: m2fox
-;; URL: https://github.com/dnxbjyj/pasteex-mode
+;; URL: https://github.com/dnxbjyj/pasteex-mode/blob/master/pasteex-mode.el
 ;; Keywords:
 ;; Compatibility: GNU Emacs 25.3
 ;;
@@ -74,6 +74,9 @@
 ;;
 
 ;;; Change log:
+;; 2019-09-17 Tues
+;;      * Support indicate image display name when insert image.
+;;
 ;; 2019-09-08 Sun
 ;;      * Add a function `pasteex-delete-img-link-and-file-at-line' to delete file when delete it link.
 ;;
