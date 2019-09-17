@@ -1,7 +1,7 @@
 # What's this?
 It's an Emacs extension, using it you can just use one key to save clipboard image to disk file, and at the same time insert the file link(org-mode/markdown-mode) or file path(other mode) to current point.
 
-here is a usage demo:
+Here is a usage demo:
 ![](./img/illustrate.gif)
 
 Based on PasteEx, only support Windows.
