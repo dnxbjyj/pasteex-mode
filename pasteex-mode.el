@@ -127,15 +127,23 @@
     ;; delete the generated file
     (delete-file relative-img-file-path)
     (user-error "There is no image on clipboard."))
+  ;; image display name
+  (setq display-name (read-string "Input a display name (default empty): "))
   ;; insert image file path (relative path)
-  (insert (pasteex-build-img-file-insert-path relative-img-file-path)))
+  (insert (pasteex-build-img-file-insert-path relative-img-file-path display-name)))
 
-(defun pasteex-build-img-file-insert-path (file-path)
+(defun pasteex-build-img-file-insert-path (file-path display-name)
   "Build image file path that to insert to current point."
   (cond
-   ((string-equal major-mode "markdown-mode") (format "![](%s)" file-path))
-   ((string-equal major-mode "org-mode") (format "[[%s]]" file-path))
-   (t file-path)))
+   ((string-equal major-mode "markdown-mode") (format "![%s](%s)" display-name file-path))
+   ((string-equal major-mode "org-mode") (progn
+					   (if (string-empty-p display-name)
+					       (format "[[%s]]" file-path)
+					     (format "[[%s][%s]]" file-path display-name))))
+   (t (progn
+	(if (string-empty-p display-name)
+	  file-path
+	(format "%s: %s" display-name file-path))))))
 
 (defun pasteex-is-png-file (file-path)
   "Check a file is png file or not."
