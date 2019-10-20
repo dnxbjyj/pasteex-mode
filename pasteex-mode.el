@@ -139,6 +139,7 @@
   "Build image file path that to insert to current point."
   (cond
    ((string-equal major-mode "markdown-mode") (format "![%s](%s)" display-name file-path))
+   ((string-equal major-mode "gfm-mode") (format "![%s](%s)" display-name file-path))
    ((string-equal major-mode "org-mode") (progn
 					   (if (string-empty-p display-name)
 					       (format "[[%s]]" file-path)
