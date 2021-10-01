@@ -117,13 +117,14 @@
   (unless (buffer-file-name)
     (user-error "Current buffer is not related to any file."))
   ;; make img dir if not exists
-  (setq img-dir (concatenate 'string (file-name-directory (buffer-file-name)) "/img/"))
+  (setq img-dir (concatenate 'string (file-name-directory (buffer-file-name)) "img/"))
   (unless (file-directory-p img-dir)
     (make-directory img-dir))
   ;; build image file name (use `pasteex_screenshot' as prefix, following buffer name, following datetime string)
-  (setq img-file-name (format "pasteex_screenshot_%s_%s.png" (file-name-base (buffer-file-name)) (format-time-string "%Y%m%d%H%M%S")))
+  (setq img-file-name (format "scr_%s_%s.png" (file-name-base (buffer-file-name)) (format-time-string "%Y%m%d%H%M%S")))
+  (setq full-img-path (concatenate 'string img-dir img-file-name))
   ;; save image file to img-dir by invoking pasteex executable command
-  (shell-command (format "%s /q %s %s" pasteex-executable-path img-dir img-file-name))
+  (shell-command (format "%s -q %s" pasteex-executable-path full-img-path))
   (setq relative-img-file-path (concatenate 'string "./img/" img-file-name))
   ;; check is png file or not
   (unless (pasteex-is-png-file relative-img-file-path)
