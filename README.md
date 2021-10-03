@@ -7,7 +7,8 @@ Here is a usage demo:
 Based on PasteEx, only support Windows.
 
 # Prerequisite
-- Install [PasteEx](https://github.com/huiyadanli/PasteEx/releases)
+- Windows: Install [PasteEx](https://github.com/huiyadanli/PasteEx/releases)
+- Macoss: Install [Pngpaste](https://github.com/jcsalterego/pngpaste)
 
 # Installation
 Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`. It's set in your `~/.emacs` file like this:
@@ -18,7 +19,7 @@ Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`
 ```
 
 # Basic Usage
-- Add `PasteEx.exe` executable to environment PATH, or set the variable `pasteex-executable-path` in your config file, like this:
+- Windows: Add `PasteEx.exe` executable to environment PATH, or set the variable `pasteex-executable-path` in your config file, like this:
 
 ```emacs-lisp
 (setq pasteex-executable-path "D:/program/PasteEx/PasteEx.exe")
@@ -30,7 +31,7 @@ Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`
 (global-set-key (kbd "C-x p i") 'pasteex-image)
 ```
 
-- After you make a screenshot to clipboard, or copy a PNG image file to clipboard, then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer immediately, the screenshot image file is saved to `./img/` directory by default. 
+- After you make a screenshot to clipboard, or copy a PNG image file to clipboard, then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer immediately, the screenshot image file is saved to `./{buffername}_imgs/` directory by default.
 
 # Feature List
 Support these functions:
@@ -41,3 +42,5 @@ Support these functions:
 # Tips
 - Only support Windows, because PasteEx only support Windows now.
 - That's all, enjoy it :)
+
+
