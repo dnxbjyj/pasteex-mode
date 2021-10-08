@@ -107,12 +107,22 @@
   :type 'string
   :group 'pasteex)
 
+(defcustom pasteex-macos-executable-path "pngpaste"
+  "Pasteex executable file path."
+  :type 'string
+  :group 'pasteex)
+
 (defun pasteex-image ()
   "Save clipboard image to disk file, and insert file path to current point."
   (interactive)
   ;; validate pasteex-executable-path
-  (unless (executable-find pasteex-executable-path)
-    (user-error "You need to add `pasteex' executable to environment PATH, or set `pasteex-executable-path' value."))
+  (cond
+   ((eq system-type 'windows-nt) (unless (executable-find pasteex-executable-path)
+                                   (user-error "You need to add `pasteex' executable to environment PATH, or set `pasteex-executable-path' value.")))
+   ((eq system-type 'darwin) (unless (executable-find pasteex-macos-executable-path)
+                                   (user-error "You need to add `pasteex' executable to environment PATH, or set `pasteex-executable-path' value.")))
+   )
+  
   ;; check if buffer has a file name
   (unless (buffer-file-name)
     (user-error "Current buffer is not related to any file."))
@@ -124,7 +134,16 @@
   (setq img-file-name (format "scr_%s_%s.png" (file-name-base (buffer-file-name)) (format-time-string "%Y%m%d%H%M%S")))
   (setq full-img-path (concatenate 'string img-dir img-file-name))
   ;; save image file to img-dir by invoking pasteex executable command
-  (shell-command (format "%s -q %s" pasteex-executable-path full-img-path))
+  (let* ((shell-command-str ""))
+    (cond
+     ((eq system-type 'darwin) (setq shell-command-str (format "%s - > %s%s" pasteex-macos-executable-path img-dir img-file-name)) )
+     ((eq system-type 'windows-nt) (setq shell-command-str (format "%s -q %s" pasteex-executable-path full-img-path)))
+     (t (user-error "Only Support Macos and Windows")))
+    (message "shell command str is:%s" shell-command-str)
+
+    (shell-command shell-command-str)
+    )
+  
   (setq relative-img-file-path (concatenate 'string "./img/" img-file-name))
   ;; check is png file or not
   (unless (pasteex-is-png-file relative-img-file-path)
@@ -159,7 +178,7 @@
     (setq file-magic-number (buffer-substring-no-properties 11 20))
     ;; png file magic number is `8950 4e47'
     (if (string-equal file-magic-number "8950 4e47")
-	t
+	      t
       nil)))
 
 (defun pasteex-delete-img-link-and-file-at-line ()
