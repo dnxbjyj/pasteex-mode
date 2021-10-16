@@ -4,14 +4,14 @@
 ;; Description: Save clipboard image to disk file, and insert file link to current point.
 ;; Author: m2fox <dnxbjyj@126.com>
 ;; Maintainer: m2fox <dnxbjyj@126.com>
-;; Copyright (C) 2019, m2fox, all rights reserved.
+;; Copyright (C) 2019-2021, m2fox, all rights reserved.
 ;; Created: 2019-09-02 19:24:53
-;; Version: 0.2.1
-;; Last-Updated: 2019-09-17 Tue 22:19:32
+;; Version: 0.3.0
+;; Last-Updated: 2021-10-17 Sun 00:14:49
 ;;           By: m2fox
 ;; URL: https://github.com/dnxbjyj/pasteex-mode/blob/master/pasteex-mode.el
 ;; Keywords:
-;; Compatibility: GNU Emacs 25.3
+;; Compatibility: GNU Emacs 26.1
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -58,7 +58,16 @@
 ;;
 ;; Set `PasteEx.exe` executable file path to environment PATH, or set the variable
 ;; `pasteex-executable-path` in your config file, like this:
-;; (setq pasteex-executable-path "D:/program/PasteEx/PasteEx.exe")
+;; (setq pasteex-executable-path "/path/to/PasteEx.exe")
+;;
+;; Windows: Add `PasteEx.exe` executable to environment PATH, or set the variable
+;; `pasteex-executable-path` in your config file, like this:
+;; (setq pasteex-executable-path "/path/to/PasteEx.exe")
+;;
+;; Mac：Install pngpaste with Home Brew, and add pngpaste executable to environment
+;; PATH, or set the variable `pasteex-macos-executable-path` in your config file,
+;; like this:
+;; (setq pasteex-macos-executable-path "/path/to/pngpaste")
 ;;
 ;; Bind your favority key to function `pasteex-image`, like this:
 ;; (global-set-key (kbd "C-x p i") 'pasteex-image)
@@ -71,10 +80,15 @@
 ;;
 ;; `pasteex-executable-path' can customize by:
 ;;      M-x customize-group RET pasteex RET
+;; `pasteex-macos-executable-path' can customize by:
+;;      M-x customize-group RET pasteex RET
 ;;
-
 ;;; Change log:
-;; 2019-09-17 Tues
+;; 2021-10-08 Fri
+;;      * Support MacOS based on pngpaste. (Contribution by carlos-wong, thanks.)
+;;      * Fix bug in Pasteex.exe (version 1.1.8.2) command switch, change `/q' to `-q'. (Contribution by RomanRcT, thanks.)
+;;
+;; 2019-09-17 Tue
 ;;      * Support indicate image display name when insert image.
 ;;
 ;; 2019-09-08 Sun
