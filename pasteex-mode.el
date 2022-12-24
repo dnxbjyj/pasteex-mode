@@ -6,12 +6,12 @@
 ;; Maintainer: m2fox <dnxbjyj@126.com>
 ;; Copyright (C) 2019-2021, m2fox, all rights reserved.
 ;; Created: 2019-09-02 19:24:53
-;; Version: 0.3.0
-;; Last-Updated: 2021-10-17 Sun 00:14:49
+;; Version: 0.3.1
+;; Last-Updated: 2022-12-24 Sat
 ;;           By: m2fox
 ;; URL: https://github.com/dnxbjyj/pasteex-mode/blob/master/pasteex-mode.el
 ;; Keywords:
-;; Compatibility: GNU Emacs 26.1
+;; Compatibility: GNU Emacs 26.1+
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -84,6 +84,9 @@
 ;;      M-x customize-group RET pasteex RET
 ;;
 ;;; Change log:
+;; 2022-12-24 Sat
+;;      * Fix bug `setq: Symbol’s function definition is void: concatenate' in Emacs 28.
+;;
 ;; 2021-10-08 Fri
 ;;      * Support MacOS based on pngpaste. (Contribution by carlos-wong, thanks.)
 ;;      * Fix bug in Pasteex.exe (version 1.1.8.2) command switch, change `/q' to `-q'. (Contribution by RomanRcT, thanks.)
