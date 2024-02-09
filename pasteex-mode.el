@@ -129,9 +129,9 @@
   :type 'string
   :group 'pasteex)
 
-(defun pasteex-image ()
+(defun pasteex-image (user-img-file-name)
   "Save clipboard image to disk file, and insert file path to current point."
-  (interactive)
+  (interactive "sInput a file name (default empty): ")
   ;; validate pasteex-executable-path
   (cond
    ((eq system-type 'windows-nt) (unless (executable-find pasteex-executable-path)
@@ -148,7 +148,9 @@
   (unless (file-directory-p img-dir)
     (make-directory img-dir))
   ;; build image file name (use `pasteex_screenshot' as prefix, following buffer name, following datetime string)
-  (setq img-file-name (format "scr_%s_%s.png" (file-name-base (buffer-file-name)) (format-time-string "%Y%m%d%H%M%S")))
+  (if (string= user-img-file-name "")
+      (setq img-file-name (format "scr_%s_%s.png" (file-name-base (buffer-file-name)) (format-time-string "%Y%m%d%H%M%S")))
+    (setq img-file-name (concat user-img-file-name ".png")))
   (setq full-img-path (concat img-dir img-file-name))
   ;; save image file to img-dir by invoking pasteex executable command
   (let* ((shell-command-str ""))
