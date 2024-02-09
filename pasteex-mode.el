@@ -221,17 +221,19 @@
   (interactive)
   ;; the line content
   (setq line-str (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
-  ;; parse image file path
-  (string-match (concat "\\./" pasteex-image-dir ".+?\\.png") line-str)
-  (setq img-file-path (match-string 0 line-str))
+  ;; parse image file paths
+  (while (string-match (concat "\\./" pasteex-image-dir ".+?\\.png") line-str)
+    (setq img-file-path (match-string 0 line-str))
+    ;; delete image file on disk
+    (if (file-exists-p img-file-path)
+        (progn
+          (delete-file img-file-path)
+          (message "delete SUCCESS: %s" img-file-path))
+      (message "file NOT exist: %s" img-file-path))
+    ;; remove the image link from the line string
+    (setq line-str (replace-match "" nil nil line-str)))
   ;; delete current line
-  (delete-region (line-beginning-position) (line-end-position))
-  ;; delete image file on disk
-  (if (file-exists-p img-file-path)
-      (progn
-	(delete-file img-file-path)
-	(message "delete SUCCESS: %s" img-file-path))
-    (message "file NOT exist: %s" img-file-path)))
+  (delete-region (line-beginning-position) (line-end-position)))
 
 ;;;###autoload
 (define-minor-mode pasteex-mode
