@@ -6,9 +6,9 @@
 ;; Maintainer: m2fox <dnxbjyj@126.com>
 ;; Copyright (C) 2019-2021, m2fox, all rights reserved.
 ;; Created: 2019-09-02 19:24:53
-;; Version: 0.3.1
-;; Last-Updated: 2022-12-24 Sat
-;;           By: m2fox
+;; Version: 0.3.2
+;; Last-Updated: 2024-02-09 Fri
+;;           By: qindapao
 ;; URL: https://github.com/dnxbjyj/pasteex-mode/blob/master/pasteex-mode.el
 ;; Keywords:
 ;; Compatibility: GNU Emacs 26.1+
@@ -74,7 +74,9 @@
 ;;
 ;; After you make a screenshot to clipboard, or copy a PNG image file to clipboard,
 ;; then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer
-;; immediately, the screenshot image file is saved to `./img/` directory by default. 
+;; immediately, the screenshot image file is saved to `./img/` directory by default.
+;; If you want to specify another image directory name, you can set this variable
+;; (setq pasteex-image-dir "image/")
 
 ;;; Customize:
 ;;
@@ -84,6 +86,10 @@
 ;;      M-x customize-group RET pasteex RET
 ;;
 ;;; Change log:
+;; 2024-02-09 Fri 
+;;      * Add customization of image directory names: pasteex-image-dir.
+;;      * Add the ability for users to manually enter file names.
+;;
 ;; 2022-12-24 Sat
 ;;      * Fix bug `setq: Symbol’s function definition is void: concatenate' in Emacs 28.
 ;;
@@ -129,6 +135,9 @@
   :type 'string
   :group 'pasteex)
 
+(defvar pasteex-image-dir "img/"
+  "Directory to save images. You can set this variable to specify the directory.")
+
 (defun pasteex-image ()
   "Save clipboard image to disk file, and insert file path to current point."
   (interactive)
@@ -144,11 +153,11 @@
   (unless (buffer-file-name)
     (user-error "Current buffer is not related to any file."))
   ;; make img dir if not exists
-  (setq img-dir (concat (file-name-directory (buffer-file-name)) "img/"))
+  (setq img-dir (concat (file-name-directory (buffer-file-name)) pasteex-image-dir))
   (unless (file-directory-p img-dir)
     (make-directory img-dir))
   
-  ;; ask for image file name until it does not exist
+  ;; ask for image file name until it does not conflict or empty(use default file name)
   (setq user-img-file-name (read-string "Input a file name (default empty): "))
   (while (and (not (string= user-img-file-name ""))
               (file-exists-p (concat img-dir user-img-file-name ".png")))
@@ -170,7 +179,7 @@
     (shell-command shell-command-str)
     )
   
-  (setq relative-img-file-path (concat "./img/" img-file-name))
+  (setq relative-img-file-path (concat "./" pasteex-image-dir img-file-name))
   ;; check is png file or not
   (unless (pasteex-is-png-file relative-img-file-path)
     ;; delete the generated file
@@ -213,7 +222,7 @@
   ;; the line content
   (setq line-str (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
   ;; parse image file path
-  (string-match "\\./img/.+?\\.png" line-str)
+  (string-match (concat "\\./" pasteex-image-dir ".+?\\.png") line-str)
   (setq img-file-path (match-string 0 line-str))
   ;; delete current line
   (delete-region (line-beginning-position) (line-end-position))

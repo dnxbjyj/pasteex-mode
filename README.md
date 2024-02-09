@@ -39,7 +39,11 @@ Put `pasteex-mode.el` to your `load-path`. The `load-path` is usually `~/elisp/`
 (global-set-key (kbd "C-x p i") 'pasteex-image)
 ```
 
-- After you make a screenshot to clipboard, or copy a PNG image file to clipboard, then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer immediately, the screenshot image file is saved to `./img/` directory by default.
+- After you make a screenshot to clipboard, or copy a PNG image file to clipboard, then just press `C-x p i` shortcut, and the file link or path will be inserted to your buffer immediately, the screenshot image file is saved to `./img/` directory by default. If you want to specify another directory name, you can set the value of this variable:
+
+```emacs-lisp
+(setq pasteex-image-dir "img/")
+```
 
 # Feature List
 Support these functions:
