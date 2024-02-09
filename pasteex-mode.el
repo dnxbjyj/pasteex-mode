@@ -129,9 +129,9 @@
   :type 'string
   :group 'pasteex)
 
-(defun pasteex-image (user-img-file-name)
+(defun pasteex-image ()
   "Save clipboard image to disk file, and insert file path to current point."
-  (interactive "sInput a file name (default empty): ")
+  (interactive)
   ;; validate pasteex-executable-path
   (cond
    ((eq system-type 'windows-nt) (unless (executable-find pasteex-executable-path)
@@ -147,6 +147,13 @@
   (setq img-dir (concat (file-name-directory (buffer-file-name)) "img/"))
   (unless (file-directory-p img-dir)
     (make-directory img-dir))
+  
+  ;; ask for image file name until it does not exist
+  (setq user-img-file-name (read-string "Input a file name (default empty): "))
+  (while (and (not (string= user-img-file-name ""))
+              (file-exists-p (concat img-dir user-img-file-name ".png")))
+    (setq user-img-file-name (read-string "File name conflict, please re-enter (default empty): " user-img-file-name)))
+  
   ;; build image file name (use `pasteex_screenshot' as prefix, following buffer name, following datetime string)
   (if (string= user-img-file-name "")
       (setq img-file-name (format "scr_%s_%s.png" (file-name-base (buffer-file-name)) (format-time-string "%Y%m%d%H%M%S")))
